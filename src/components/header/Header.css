@@ -1,0 +1,69 @@
+header {
+  position: relative;
+  width: 100%;
+  height: 20vh;
+  min-height: 12rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3rem;
+  background: repeat left/150% url("/img/pizza-bg.svg");
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 60%;
+  background-color: black;
+  z-index: 0;
+}
+
+header .title,
+header .subtitle {
+  margin: 0;
+  text-align: center;
+  color: var(--color-light);
+  z-index: 10;
+}
+
+header .title {
+  font-variant: small-caps;
+  font-size: 1.8rem;
+}
+
+header .subtitle {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+header hr {
+  width: 80%;
+  opacity: 40%;
+}
+
+@media screen and (min-width: 768px) {
+  header {
+    height: 15vh;
+    background-size: 50%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  header {
+    height: 10vh;
+  }
+
+  header .title {
+    font-size: 2.4rem;
+  }
+
+  header .subtitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+}
