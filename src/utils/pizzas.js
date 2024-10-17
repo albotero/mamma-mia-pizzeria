@@ -21,3 +21,9 @@ export const pizzas = [
     img: "pepperoni.png",
   },
 ]
+
+export const pizzaCart = [
+  { id: 1, count: 1 },
+  { id: 2, count: 1 },
+  { id: 3, count: 1 },
+]
