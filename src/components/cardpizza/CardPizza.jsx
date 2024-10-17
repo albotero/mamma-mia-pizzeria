@@ -19,10 +19,10 @@ const CardPizza = ({ name, price, ingredients, img }) => {
           <p className="h4 my-2">Precio: {currency(price)}</p>
         </ListGroupItem>
       </ListGroup>
-      <Card.Footer className="d-flex justify-content-evenly mb-3">
+      <Card.Body className="d-flex justify-content-evenly mb-3">
         <Button variant="outline-dark">Ver más 👀</Button>
         <Button variant="dark">Añadir 🛒</Button>
-      </Card.Footer>
+      </Card.Body>
     </Card>
   )
 }
