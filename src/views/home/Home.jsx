@@ -28,7 +28,7 @@ const Home = () => {
   ]
 
   return (
-    <main className="flex-grow-1">
+    <main>
       <Header />
       <CardsList data={pizzas} />
     </main>
