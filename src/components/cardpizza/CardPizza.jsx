@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card"
 const CardPizza = ({ name, price, ingredients, img }) => {
   return (
     <Card>
-      <Card.Img variant="top" src={`/img/pizzas/${img}`} />
+      <Card.Img variant="top" src={img} />
       <Card.Body>
         <Card.Title className="mb-0">Pizza {name}</Card.Title>
       </Card.Body>
