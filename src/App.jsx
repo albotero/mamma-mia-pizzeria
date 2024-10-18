@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 
 import Footer from "./components/footer/Footer"
 import MenuBar from "./components/menubar/MenuBar"
@@ -21,7 +21,8 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/pizza/001" element={<Pizza />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>
       <Footer />
     </>
