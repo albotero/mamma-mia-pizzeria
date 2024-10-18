@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap"
+import { Button, Col, Row } from "react-bootstrap"
 import { BsTrash3 } from "react-icons/bs"
 import { IoMdAdd, IoMdRemove } from "react-icons/io"
 
@@ -19,21 +19,26 @@ const CartItem = ({ pizza, count, setCart }) => {
 
   return (
     count > 0 && (
-      <div className="row align-items-center my-4">
-        <img src={`/img/pizzas/${img}`} className="col-2" />
-        <p className="col m-0 h5">{name}</p>
-        <p className="col me-2 my-0 d-flex flex-column align-items-end">
-          <span className="h5 m-0">{currency(price * count)}</span>
-          <span className="small text-secondary">{currency(price)} c/u</span>
-        </p>
-        <Button variant="outline-danger" className="col-1" onClick={() => modifyCount("rem")}>
-          {count > 1 ? <IoMdRemove size="1.2rem" /> : <BsTrash3 size="1.2rem" />}
-        </Button>
-        <p className="col-1 m-0 h6 text-center">{count}</p>
-        <Button variant="outline-primary" className="col-1" onClick={() => modifyCount("add")}>
-          <IoMdAdd size="1.2rem" />
-        </Button>
-      </div>
+      <Row className="align-items-start my-4">
+        <img src={`/img/pizzas/${img}`} className="col-4 col-md-3" />
+        <Col className="row row-cols-2 row-cols-md-3">
+          <Col className="h5 m-0 col-md-4 order-1">{name}</Col>
+          <Col className="m-0 text-end order-2">
+            <span className="h5">{currency(price * count)}</span>
+            <span className="small text-secondary text-end d-none d-md-block">{currency(price)} c/u</span>
+          </Col>
+          <Col className="small text-secondary text-end order-4 d-md-none">{currency(price)} c/u</Col>
+          <Col className="col-md-3 row order-3 pt-1 pb-md-1 mt-md-0 mx-auto ms-md-2 me-md-0">
+            <Button variant="outline-danger" className="col-4 px-1 p-2 lh-1" onClick={() => modifyCount("rem")}>
+              {count > 1 ? <IoMdRemove /> : <BsTrash3 />}
+            </Button>
+            <Col className="col-4 m-0 h6 text-center align-self-center lh-1">{count}</Col>
+            <Button variant="outline-primary" className="col-4 px-1 py-2 lh-1" onClick={() => modifyCount("add")}>
+              <IoMdAdd />
+            </Button>
+          </Col>
+        </Col>
+      </Row>
     )
   )
 }
