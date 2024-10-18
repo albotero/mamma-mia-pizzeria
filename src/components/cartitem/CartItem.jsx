@@ -22,7 +22,7 @@ const CartItem = ({ pizza, count, setCart }) => {
       <Row className="align-items-start my-4">
         <img src={`/img/pizzas/${img}`} className="col-4 col-md-3" />
         <Col className="row row-cols-2 row-cols-md-3">
-          <Col className="h5 m-0 col-md-4 order-1">{name}</Col>
+          <Col className="h5 m-0 col-md-4 order-1 text-capitalize">{name}</Col>
           <Col className="m-0 text-end order-2">
             <span className="h5">{currency(price * count)}</span>
             <span className="small text-secondary text-end d-none d-md-block">{currency(price)} c/u</span>
