@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Button, Container, Image, Row } from "react-bootstrap"
 import { Navigate, useParams } from "react-router-dom"
 
 import Error from "../../components/error/Error"
 import Header from "../../components/header/Header"
 import IngredientList from "../../components/ingredientlist/IngredientList"
+import { CartContext } from "../../context/CartContext"
 import { fetchData } from "../../utils/fetch"
 import { currency } from "../../utils/format"
 
 const Pizza = () => {
   const [pizza, setPizza] = useState({})
   const [error, setError] = useState()
+  const { modifyCount } = useContext(CartContext)
   const { id } = useParams()
 
   useEffect(() => {
@@ -43,7 +45,11 @@ const Pizza = () => {
                 <IngredientList ingredients={ingredients} />
                 <p className="fs-5 fw-light text-secondary mt-3 mb-0">📝 Descripción:</p>
                 <p>{desc}</p>
-                <Button variant="dark" className="col-5 col-md-3 mx-auto mt-2 mb-3">
+                <Button
+                  variant="dark"
+                  className="col-5 col-md-3 mx-auto mt-2 mb-3"
+                  onClick={() => modifyCount(id, "add")}
+                >
                   Añadir 🛒
                 </Button>
               </Row>
