@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { ListGroup, ListGroupItem } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
+import { Link } from "react-router-dom"
 
 import { currency } from "../../utils/format"
 import IngredientList from "../ingredientlist/IngredientList"
@@ -25,7 +26,9 @@ const CardPizza = ({ pizza: { id, name, price, ingredients, img } }) => {
         </ListGroupItem>
       </ListGroup>
       <Card.Footer className="d-flex justify-content-evenly mb-3">
-        <Button variant="outline-dark">Ver más 👀</Button>
+        <Link className="btn btn-outline-dark" to={`/pizza/${id}`}>
+          Ver más 👀
+        </Link>
         <Button variant="dark" onClick={() => modifyCount(id, "add")}>
           Añadir 🛒
         </Button>

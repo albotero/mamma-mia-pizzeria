@@ -15,7 +15,7 @@ const Pizza = () => {
 
   useEffect(() => {
     fetchData({
-      data: { endpoint: `http://localhost:5000/api/pizzas/p${id}` },
+      data: { endpoint: `http://localhost:5000/api/pizzas/${id}` },
       callback: setPizza,
       errorCallback: setError,
     })
