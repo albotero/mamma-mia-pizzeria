@@ -7,6 +7,7 @@ import Register from "./pages/register/Register"
 import Login from "./pages/login/Login"
 import Cart from "./pages/cart/Cart"
 import Pizza from "./pages/pizza/Pizza"
+import NotFound from "./pages/notfound/NotFound"
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/pizza/001" element={<Pizza />} />
         <Route path="/profile" />
-        <Route path="*" />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>
