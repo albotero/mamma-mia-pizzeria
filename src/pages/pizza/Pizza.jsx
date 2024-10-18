@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Button, Container, Image, Row } from "react-bootstrap"
+import { Navigate, useParams } from "react-router-dom"
 
 import Error from "../../components/error/Error"
 import Header from "../../components/header/Header"
@@ -10,20 +11,23 @@ import { currency } from "../../utils/format"
 const Pizza = () => {
   const [pizza, setPizza] = useState({})
   const [error, setError] = useState()
+  const { id } = useParams()
 
   useEffect(() => {
     fetchData({
-      data: { endpoint: "http://localhost:5000/api/pizzas/p001" },
+      data: { endpoint: `http://localhost:5000/api/pizzas/p${id}` },
       callback: setPizza,
       errorCallback: setError,
     })
-  }, [setPizza, setError])
+  }, [id, setPizza, setError])
 
   const { name, price, desc, ingredients, img } = pizza
 
   return (
     <main>
-      {error ? (
+      {error?.code === 404 ? (
+        <Navigate to="/404" />
+      ) : error ? (
         <Error error={error} />
       ) : (
         <>
