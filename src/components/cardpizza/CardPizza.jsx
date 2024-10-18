@@ -20,8 +20,8 @@ const CardPizza = ({ name, price, ingredients, img }) => {
         </ListGroupItem>
       </ListGroup>
       <Card.Body className="d-flex justify-content-evenly mb-3">
-        <Button variant="outline-dark">Ver más 👀</Button>
-        <Button variant="dark">Añadir 🛒</Button>
+        <Button variant="dark">Ver más 👀</Button>
+        <Button variant="outline-dark">Añadir 🛒</Button>
       </Card.Body>
     </Card>
   )
