@@ -8,7 +8,7 @@ import { currency } from "../../utils/format"
 const MenuBar = () => {
   // Variables to be retrieved from backend
   const total = 25000
-  const token = false
+  const token = true
 
   return (
     <Navbar expand="lg" bg="dark" data-bs-theme="dark" sticky="top" className="px-1 px-lg-4">
@@ -27,7 +27,7 @@ const MenuBar = () => {
                 <Link to="/profile" className="nav-link">
                   🔓 Profile
                 </Link>
-                <Link to="/" className="nav-link">
+                <Link to="/logout" className="nav-link">
                   🔒 Logout
                 </Link>
               </>
