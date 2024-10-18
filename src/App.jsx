@@ -9,10 +9,11 @@ import Cart from "./pages/cart/Cart"
 import Pizza from "./pages/pizza/Pizza"
 import NotFound from "./pages/notfound/NotFound"
 import Profile from "./pages/profile/Profile"
+import CartProvider from "./context/CartContext"
 
 function App() {
   return (
-    <>
+    <CartProvider>
       <MenuBar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -25,7 +26,7 @@ function App() {
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>
       <Footer />
-    </>
+    </CartProvider>
   )
 }
 

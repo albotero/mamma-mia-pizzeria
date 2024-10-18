@@ -1,11 +1,15 @@
+import { useContext } from "react"
 import { ListGroup, ListGroupItem } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
 
 import { currency } from "../../utils/format"
 import IngredientList from "../ingredientlist/IngredientList"
+import { CartContext } from "../../context/CartContext"
 
-const CardPizza = ({ name, price, ingredients, img }) => {
+const CardPizza = ({ pizza: { id, name, price, ingredients, img } }) => {
+  const { modifyCount } = useContext(CartContext)
+
   return (
     <Card>
       <Card.Img variant="top" src={img} />
@@ -22,7 +26,9 @@ const CardPizza = ({ name, price, ingredients, img }) => {
       </ListGroup>
       <Card.Footer className="d-flex justify-content-evenly mb-3">
         <Button variant="outline-dark">Ver más 👀</Button>
-        <Button variant="dark">Añadir 🛒</Button>
+        <Button variant="dark" onClick={() => modifyCount(id, "add")}>
+          Añadir 🛒
+        </Button>
       </Card.Footer>
     </Card>
   )

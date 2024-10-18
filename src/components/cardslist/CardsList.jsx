@@ -9,7 +9,7 @@ const CardsList = ({ data }) => {
         <Row xs={1} md={3} className="g-4">
           {data.map((el) => (
             <Col key={el.id}>
-              <CardPizza {...el} />
+              <CardPizza pizza={el} />
             </Col>
           ))}
         </Row>
