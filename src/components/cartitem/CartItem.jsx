@@ -13,7 +13,7 @@ const CartItem = ({ pizza, count }) => {
   return (
     count > 0 && (
       <div className="row align-items-center my-4">
-        <img src={`/img/pizzas/${img}`} className="col-2" />
+        <img src={img} className="col-2" />
         <p className="col m-0 h5">{name}</p>
         <p className="col me-2 my-0 d-flex flex-column align-items-end">
           <span className="h5 m-0">{currency(price * count)}</span>

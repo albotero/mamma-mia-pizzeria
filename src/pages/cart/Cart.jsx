@@ -3,12 +3,13 @@ import { Button } from "react-bootstrap"
 import { IoWarningOutline } from "react-icons/io5"
 
 import CartItem from "../../components/cartitem/CartItem"
-import { findPizza } from "../../utils/cart"
 import { currency } from "../../utils/format"
 import { CartContext } from "../../context/CartContext"
+import { PizzasContext } from "../../context/PizzasContext"
 
 const Cart = () => {
   const { cart, cartTotal } = useContext(CartContext)
+  const { findPizza } = useContext(PizzasContext)
 
   return (
     <main>
