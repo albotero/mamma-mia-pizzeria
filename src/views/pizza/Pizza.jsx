@@ -32,7 +32,7 @@ const Pizza = () => {
             <Row>
               <Image src={img} alt={`Imagen de pizza ${name}`} className="col-12 col-md-6 order-md-last mb-4" />
               <Row className="col-12 col-md-6 mb-md-5 pb-md-5">
-                <h2 className="text-capitalize col-10 col-md-6">Pizza {name}</h2>
+                <h2 className="text-capitalize">Pizza {name}</h2>
                 <p className="fs-5 mt-3">
                   <span className="fw-light text-secondary">💵 Precio:</span> {currency(price)}
                 </p>
