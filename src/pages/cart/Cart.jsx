@@ -6,10 +6,12 @@ import CartItem from "../../components/cartitem/CartItem"
 import { currency } from "../../utils/format"
 import { CartContext } from "../../context/CartContext"
 import { PizzasContext } from "../../context/PizzasContext"
+import { UserContext } from "../../context/UserContext"
 
 const Cart = () => {
   const { cart, cartTotal } = useContext(CartContext)
   const { findPizza } = useContext(PizzasContext)
+  const { token } = useContext(UserContext)
 
   return (
     <main>
@@ -25,10 +27,12 @@ const Cart = () => {
             {cart.map(({ id, count }) => (
               <CartItem key={id} pizza={findPizza(id)} count={count} />
             ))}
-            <p className="h1 my-4">Total: {currency(cartTotal)}</p>
-            <Button variant="dark" className="btn-lg">
-              Pagar
-            </Button>
+            <div className="d-flex flex-column flex-md-row my-4">
+              <p className="h1 mt-2 text-center text-md-start">Total: {currency(cartTotal)}</p>
+              <Button variant="dark" className="btn-lg col-5 col-md-3 mx-auto ms-md-4 my-2" disabled={!token}>
+                Pagar
+              </Button>
+            </div>
           </>
         )}
       </div>

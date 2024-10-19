@@ -5,13 +5,12 @@ import Nav from "react-bootstrap/Nav"
 import { Link, NavLink } from "react-router-dom"
 
 import { CartContext } from "../../context/CartContext"
+import { UserContext } from "../../context/UserContext"
 import { currency } from "../../utils/format"
 
 const MenuBar = () => {
   const { cartTotal } = useContext(CartContext)
-
-  // Variables to be retrieved from backend
-  const token = true
+  const { token, logout } = useContext(UserContext)
 
   const linkClassName = ({ isActive }) => "nav-link" + (isActive ? " text-light" : "")
   const cartButtonClassName = ({ isActive }) => "mx-auto btn " + (isActive ? "btn-info" : "btn-outline-info")
@@ -33,9 +32,9 @@ const MenuBar = () => {
                 <NavLink to="/profile" className={linkClassName}>
                   🔓 Profile
                 </NavLink>
-                <NavLink to="/logout" className={linkClassName}>
+                <button className="nav-link" onClick={logout}>
                   🔒 Logout
-                </NavLink>
+                </button>
               </>
             ) : (
               <>

@@ -11,25 +11,28 @@ import NotFound from "./pages/notfound/NotFound"
 import Profile from "./pages/profile/Profile"
 import CartProvider from "./context/CartContext"
 import PizzasProvider from "./context/PizzasContext"
+import UserProvider from "./context/UserContext"
 
 function App() {
   return (
-    <PizzasProvider>
-      <CartProvider>
-        <MenuBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/pizza/:id" element={<Pizza />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/404" element={<NotFound />} />
-          <Route path="*" element={<Navigate to="/404" replace />} />
-        </Routes>
-        <Footer />
-      </CartProvider>
-    </PizzasProvider>
+    <UserProvider>
+      <PizzasProvider>
+        <CartProvider>
+          <MenuBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/pizza/:id" element={<Pizza />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<Navigate to="/404" replace />} />
+          </Routes>
+          <Footer />
+        </CartProvider>
+      </PizzasProvider>
+    </UserProvider>
   )
 }
 
