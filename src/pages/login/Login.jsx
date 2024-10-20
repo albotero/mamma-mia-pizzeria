@@ -1,9 +1,11 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+
 import Form from "../../components/form/Form"
+import { UserContext } from "../../context/UserContext"
 
 const Login = () => {
-  const [loginData, setLoginData] = useState({})
-  const { email, password } = loginData
+  const { login } = useContext(UserContext)
+  const [{ email, password }, setCredentials] = useState({})
 
   const inputs = [
     {
@@ -24,8 +26,7 @@ const Login = () => {
     },
   ]
 
-  // Send the data to server
-  const onSubmit = () => ({})
+  const handleSubmit = () => login(email, password)
 
   return (
     <main>
@@ -33,8 +34,8 @@ const Login = () => {
         <h2>Login</h2>
         <Form
           inputs={inputs}
-          onSubmit={onSubmit}
-          setValue={setLoginData}
+          onSubmit={handleSubmit}
+          setValue={setCredentials}
           submitButton="Login"
           successMessage="Authentication successful!"
         />

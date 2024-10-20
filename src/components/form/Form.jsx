@@ -7,13 +7,14 @@ import Input from "../../components/input/Input"
 const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
   const [result, setResult] = useState()
 
-  const sendForm = (e) => {
+  const sendForm = async (e) => {
+    e.preventDefault()
     try {
       // Check if inputs have valid data
       const errors = inputs.map(({ invalid }) => invalid()).filter((el) => el)
       if (errors.length) throw { errors }
       // Send data to server
-      const result = onSubmit()
+      const result = await onSubmit()
       if (result?.error) throw { errors: [result.error] }
       // Render success message
       setResult({
@@ -43,8 +44,6 @@ const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
           </>
         ),
       })
-    } finally {
-      e.preventDefault()
     }
   }
 

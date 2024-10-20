@@ -1,5 +1,4 @@
-export const fetchData = async ({ data, callback, errorCallback }) => {
-  const { endpoint, options = {} } = data
+export const fetchData = async ({ data: { endpoint, options = {} }, callback, errorCallback }) => {
   try {
     // Fetch the data
     const res = await fetch(endpoint, options)
