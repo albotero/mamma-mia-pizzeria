@@ -5,7 +5,7 @@ import { UserContext } from "../../context/UserContext"
 
 const Login = () => {
   const { login } = useContext(UserContext)
-  const [{ email, password }, setCredentials] = useState({})
+  const [credentials, setCredentials] = useState({})
 
   const inputs = [
     {
@@ -14,7 +14,8 @@ const Login = () => {
       type: "email",
       prop: "email",
       required: true,
-      invalid: () => (email?.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g) ? null : "Please provide a valid email address"),
+      invalid: () =>
+        credentials.email?.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g) ? null : "Please provide a valid email address",
     },
     {
       id: "password",
@@ -22,11 +23,12 @@ const Login = () => {
       type: "password",
       prop: "password",
       required: true,
-      invalid: () => (password?.match(/^.{6,}$/g) ? null : "The password must be at least 6 characters long"),
+      invalid: () =>
+        credentials.password?.match(/^.{6,}$/g) ? null : "The password must be at least 6 characters long",
     },
   ]
 
-  const handleSubmit = () => login(email, password)
+  const handleSubmit = () => login(credentials)
 
   return (
     <main>

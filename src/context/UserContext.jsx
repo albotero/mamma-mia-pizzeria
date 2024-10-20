@@ -6,15 +6,15 @@ export const UserContext = createContext()
 const UserProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"))
 
-  const login = async (email, password) => {
+  const post = async (formData, endpoint) => {
     let result
     await fetchData({
       data: {
-        endpoint: "http://localhost:5000/api/auth/login",
+        endpoint: `http://localhost:5000/api/auth/${endpoint}`,
         options: {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify(formData),
         },
       },
       callback: ({ token }) => {
@@ -27,6 +27,10 @@ const UserProvider = ({ children }) => {
     })
     return result
   }
+
+  const login = (data) => post(data, "login")
+
+  const register = (data) => post(data, "register")
 
   const logout = () => {
     setToken(undefined)
@@ -47,7 +51,7 @@ const UserProvider = ({ children }) => {
     })
   }
 
-  const context = { token, login, logout, me }
+  const context = { token, login, register, logout, me }
   return <UserContext.Provider value={context}>{children}</UserContext.Provider>
 }
 
