@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Button, Col, Container, Image, Row } from "react-bootstrap"
 import { MdLogout } from "react-icons/md"
 
@@ -6,7 +6,14 @@ import { UserContext } from "../../context/UserContext"
 import Woman from "./woman.gif"
 
 const Profile = () => {
-  const { logout } = useContext(UserContext)
+  const { logout, me } = useContext(UserContext)
+  const [email, setEmail] = useState()
+
+  useEffect(() => {
+    const callback = ({ email }) => setEmail(email)
+    const errorCallback = (err) => err && setEmail("ERROR while fetching data")
+    me(callback, errorCallback)
+  }, [me])
 
   return (
     <main>
@@ -16,7 +23,7 @@ const Profile = () => {
         </Row>
         <Row className="justify-content-center align-items-center">
           <Col className="col-10 col-md-3 fs-5">
-            <span className="fw-semibold">Email:</span> usuario@mammamia.com
+            <span className="fw-semibold">Email:</span> {email}
           </Col>
           <Button variant="outline-dark" className="col-6 col-md-2 mt-4 mt-md-0" onClick={logout}>
             <MdLogout size="1.7rem" className="pb-1" /> Cerrar sesión

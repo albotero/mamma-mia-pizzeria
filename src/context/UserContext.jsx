@@ -33,7 +33,21 @@ const UserProvider = ({ children }) => {
     localStorage.removeItem("token")
   }
 
-  const context = { token, login, logout }
+  const me = async (callback, errorCallback) => {
+    await fetchData({
+      data: {
+        endpoint: "http://localhost:5000/api/auth/me",
+        options: {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      },
+      callback,
+      errorCallback,
+    })
+  }
+
+  const context = { token, login, logout, me }
   return <UserContext.Provider value={context}>{children}</UserContext.Provider>
 }
 
