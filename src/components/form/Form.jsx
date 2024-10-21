@@ -34,8 +34,8 @@ const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
         message: (
           <>
             <p className="my-2">The following error{errors.length === 1 ? "" : "s"} occurred:</p>
-            {errors.map((err) => (
-              <p key={err} className="d-flex align-items-center my-1">
+            {errors.map((err, i) => (
+              <p key={`error-${i}`} className="d-flex align-items-center my-1">
                 <MdOutlineReportGmailerrorred size="1.5rem" />
                 <span className="ms-1">{err}</span>
               </p>

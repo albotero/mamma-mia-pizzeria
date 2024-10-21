@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Form from "../../components/form/Form"
+import { checkEmail, checkPassword } from "../../utils/regex"
 
 const Login = () => {
   const [loginData, setLoginData] = useState({})
@@ -12,7 +13,7 @@ const Login = () => {
       type: "email",
       prop: "email",
       required: true,
-      invalid: () => (email?.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g) ? null : "Please provide a valid email address"),
+      invalid: () => checkEmail(email),
     },
     {
       id: "password",
@@ -20,7 +21,7 @@ const Login = () => {
       type: "password",
       prop: "password",
       required: true,
-      invalid: () => (password?.match(/^.{6,}$/g) ? null : "The password must be at least 6 characters long"),
+      invalid: () => checkPassword(password),
     },
   ]
 
