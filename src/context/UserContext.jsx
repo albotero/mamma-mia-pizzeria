@@ -20,6 +20,7 @@ const UserProvider = ({ children }) => {
       },
       callback: ({ token, email }) => {
         localStorage.setItem("token", token)
+        localStorage.setItem("email", email)
         setToken(token)
         setEmail(email)
       },
