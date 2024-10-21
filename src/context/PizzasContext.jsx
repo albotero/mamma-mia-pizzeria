@@ -7,7 +7,7 @@ const PizzasProvider = ({ children }) => {
   const [pizzas, setPizzas] = useState([])
   const [error, setError] = useState()
 
-  const findPizza = (id) => pizzas.find((el) => el.id === id)
+  const findPizza = (id) => pizzas.find((el) => el.id === id) || {}
 
   useEffect(() => {
     fetchData({
