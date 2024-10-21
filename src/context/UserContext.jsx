@@ -5,6 +5,7 @@ export const UserContext = createContext()
 
 const UserProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"))
+  const [email, setEmail] = useState(localStorage.getItem("email"))
 
   const post = async (formData, endpoint) => {
     let result
@@ -17,9 +18,10 @@ const UserProvider = ({ children }) => {
           body: JSON.stringify(formData),
         },
       },
-      callback: ({ token }) => {
+      callback: ({ token, email }) => {
         localStorage.setItem("token", token)
         setToken(token)
+        setEmail(email)
       },
       errorCallback: async (error) => {
         result = { error: await error?.message }
@@ -34,7 +36,9 @@ const UserProvider = ({ children }) => {
 
   const logout = () => {
     setToken(undefined)
+    setEmail(undefined)
     localStorage.removeItem("token")
+    localStorage.removeItem("email")
   }
 
   const me = async (callback, errorCallback) => {
@@ -51,7 +55,7 @@ const UserProvider = ({ children }) => {
     })
   }
 
-  const context = { token, login, register, logout, me }
+  const context = { token, storedEmail: email, login, register, logout, me }
   return <UserContext.Provider value={context}>{children}</UserContext.Provider>
 }
 

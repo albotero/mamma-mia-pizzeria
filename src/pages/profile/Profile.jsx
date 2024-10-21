@@ -6,14 +6,18 @@ import { UserContext } from "../../context/UserContext"
 import Woman from "./woman.gif"
 
 const Profile = () => {
-  const { logout, me } = useContext(UserContext)
+  const { storedEmail, logout, me } = useContext(UserContext)
   const [email, setEmail] = useState()
 
   useEffect(() => {
+    if (storedEmail) {
+      setEmail(storedEmail)
+      return
+    }
     const callback = ({ email }) => setEmail(email)
     const errorCallback = (err) => err && setEmail("ERROR while fetching data")
     me(callback, errorCallback)
-  }, [me])
+  }, [storedEmail, me])
 
   return (
     <main>
