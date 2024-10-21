@@ -17,12 +17,16 @@ const CartProvider = ({ children }) => {
   const modifyCount = (id, type) => {
     setCart((prev) => {
       const i = prev.findIndex((el) => el.id === id)
-      // If item does not exist
-      if (i === -1) return [...prev, { id, count: 1 }]
-      // Modify count
-      const newCount = type === "add" ? prev[i].count + 1 : prev[i].count - 1
-      const newArr = [...prev]
-      newArr.splice(i, 1, { id, count: newCount })
+      let newArr
+      if (i === -1) {
+        // If item does not exist
+        newArr = [...prev, { id, count: 1 }]
+      } else {
+        // Modify count
+        const newCount = type === "add" ? prev[i].count + 1 : prev[i].count - 1
+        newArr = [...prev]
+        newArr.splice(i, 1, { id, count: newCount })
+      }
       localStorage.setItem("cart", JSON.stringify(newArr))
       return newArr
     })
