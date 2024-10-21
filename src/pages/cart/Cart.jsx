@@ -9,7 +9,7 @@ import { PizzasContext } from "../../context/PizzasContext"
 import { UserContext } from "../../context/UserContext"
 
 const Cart = () => {
-  const { cart, cartTotal } = useContext(CartContext)
+  const { cart, cartTotal, clearCart } = useContext(CartContext)
   const { findPizza } = useContext(PizzasContext)
   const { token } = useContext(UserContext)
 
@@ -27,10 +27,13 @@ const Cart = () => {
             {cart.map(({ id, count }) => (
               <CartItem key={id} pizza={findPizza(id)} count={count} />
             ))}
-            <div className="d-flex flex-column flex-md-row my-4">
-              <p className="h1 mt-2 text-center text-md-start">Total: {currency(cartTotal)}</p>
-              <Button variant="dark" className="btn-lg col-5 col-md-3 mx-auto ms-md-4 my-2" disabled={!token}>
+            <div className="d-flex flex-column flex-md-row my-4 align-items-center" style={{ gap: 20 }}>
+              <p className="h1 m-0 text-center text-md-start">Total: {currency(cartTotal)}</p>
+              <Button variant="dark" className="btn-lg col-5 col-md-3" disabled={!token}>
                 Pagar
+              </Button>
+              <Button variant="outline-dark" className="btn-lg col-8 col-md-5" onClick={clearCart}>
+                🛒 Vaciar carrito
               </Button>
             </div>
           </>
