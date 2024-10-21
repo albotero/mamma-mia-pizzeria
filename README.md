@@ -5,7 +5,7 @@ Las entregas se encuentran en la rama principal (Main), consolidadas con Merge a
 | Hito | Tema                                  | Merge en rama Main |
 | :--: | :------------------------------------ | :----------------: |
 |  1   | Introducción a React                  |         ✅         |
-|  2   | Estados de los componentes y eventos  |         🔜         |
+|  2   | Estados de los componentes y eventos  |         ✅         |
 |  3   | Renderización dinámica de componentes |         🔜         |
 |  4   | Consumo de APIs con React             |         🔜         |
 |  5   | React Router I                        |         🔜         |
