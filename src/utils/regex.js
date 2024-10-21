@@ -2,6 +2,7 @@ const checkRegex = ({ title, error, str, pattern }) => {
   if (!str) return `${title} is required`
   return str.match(pattern) ? null : error
 }
+
 export const checkEmail = (str) =>
   checkRegex({
     title: "Email",
@@ -9,6 +10,7 @@ export const checkEmail = (str) =>
     str,
     pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
   })
+
 export const checkPassword = (str) =>
   checkRegex({
     title: "Password",
