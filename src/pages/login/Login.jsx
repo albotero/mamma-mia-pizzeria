@@ -36,10 +36,12 @@ const Login = () => {
         <h2>Login</h2>
         <Form
           inputs={inputs}
-          onSubmit={handleSubmit}
           setValue={setCredentials}
-          submitButton="Login"
-          successMessage="Authentication successful!"
+          submit={{
+            callback: handleSubmit,
+            title: "Login",
+            success: "¡Autenticación exitosa!",
+          }}
         />
       </div>
     </main>

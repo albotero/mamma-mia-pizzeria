@@ -4,31 +4,38 @@ import { FaRegCircleCheck } from "react-icons/fa6"
 import { MdOutlineReportGmailerrorred } from "react-icons/md"
 import Input from "../../components/input/Input"
 
-const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
+const Form = ({ children, inputs, setValue, submit, reset, resultOpts = {} }) => {
   const [result, setResult] = useState()
+  const { hideForm, setResultAvailable } = resultOpts
+
+  const resetForm = () => reset?.callback()
 
   const sendForm = async (e) => {
     e.preventDefault()
     try {
       // Check if inputs have valid data
-      const errors = inputs.map(({ invalid }) => invalid()).filter((el) => el)
-      if (errors.length) throw { errors }
+      if (inputs) {
+        const errors = inputs.map(({ invalid }) => invalid()).filter((el) => el)
+        if (errors.length) throw { errors }
+      }
       // Send data to server
-      const result = await onSubmit()
+      const result = await submit.callback()
       if (result?.error) throw { errors: [result.error] }
       // Render success message
+      console.log(submit.success)
       setResult({
         title: "Success",
         color: "success",
         message: (
           <p className="d-flex align-items-center my-1">
             <FaRegCircleCheck size="1.2rem" />
-            <span className="ms-2">{successMessage || "Data sent to server"}</span>
+            <span className="ms-2">{submit.success || "Data sent to server"}</span>
           </p>
         ),
       })
     } catch ({ errors }) {
       // Render error message
+      console.error(errors)
       setResult({
         title: "Error",
         color: "danger",
@@ -44,33 +51,49 @@ const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
           </>
         ),
       })
+    } finally {
+      if (setResultAvailable) setResultAvailable(true)
     }
   }
 
   return (
     <>
-      <form action="" onSubmit={sendForm} className="d-flex flex-column gap-4 mt-4">
-        {inputs.map(({ id, label, prop, type, invalid, required }) => (
-          <div key={id} className="form-group row">
-            <label htmlFor={id} className="col-md-4 col-form-label">
-              {label}: {required && <span className="text-danger">*</span>}
-            </label>
-            <Input
-              className="col-md-8"
-              type={type}
-              id={id}
-              invalid={invalid()}
-              setValue={{ callback: setValue, prop }}
-            />
-          </div>
-        ))}
+      {hideForm && result ? undefined : (
+        <form onSubmit={sendForm} onReset={resetForm} className="d-flex flex-column gap-4 mt-4">
+          {children}
 
-        <div className="row">
-          <Button type="submit" variant="outline-dark" className="btn-lg col-6 col-md-4 mx-auto mt-2">
-            {submitButton}
-          </Button>
-        </div>
-      </form>
+          {inputs?.map(({ id, label, prop, type, invalid, required }) => (
+            <div key={id} className="form-group row">
+              <label htmlFor={id} className="col-md-4 col-form-label">
+                {label}: {required && <span className="text-danger">*</span>}
+              </label>
+              <Input
+                className="col-md-8"
+                type={type}
+                id={id}
+                invalid={invalid()}
+                setValue={{ callback: setValue, prop }}
+              />
+            </div>
+          ))}
+
+          <div className="row">
+            <Button
+              type="submit"
+              variant={submit.variant || "outline-dark"}
+              className="btn-lg col-6 col-md-4 mx-auto mt-2"
+              disabled={submit.disabled}
+            >
+              {submit.title}
+            </Button>
+            {reset && (
+              <Button type="reset" variant="outline-dark" className="btn-lg col-6 col-md-4 mx-auto mt-2">
+                {reset.title}
+              </Button>
+            )}
+          </div>
+        </form>
+      )}
 
       {result && (
         <div

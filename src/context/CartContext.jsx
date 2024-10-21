@@ -1,11 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react"
+
+import { fetchData } from "../utils/fetch"
 import { PizzasContext } from "./PizzasContext"
+import { UserContext } from "./UserContext"
 
 export const CartContext = createContext()
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([])
   const { findPizza } = useContext(PizzasContext)
+  const { token } = useContext(UserContext)
 
   useEffect(() => {
     const localData = JSON.parse(localStorage.getItem("cart"))
@@ -37,7 +41,26 @@ const CartProvider = ({ children }) => {
     localStorage.removeItem("cart")
   }
 
-  const context = { cart, cartTotal, setCart, modifyCount, clearCart }
+  const buyCart = async () => {
+    let result
+    await fetchData({
+      data: {
+        endpoint: "http://localhost:5000/api/checkouts",
+        options: {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: JSON.stringify(cart),
+        },
+      },
+      callback: () => clearCart(),
+      errorCallback: async (error) => {
+        result = { error: await error?.message }
+      },
+    })
+    return result
+  }
+
+  const context = { cart, cartTotal, setCart, modifyCount, clearCart, buyCart }
   return <CartContext.Provider value={context}>{children}</CartContext.Provider>
 }
 

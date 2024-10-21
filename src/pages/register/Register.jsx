@@ -41,7 +41,15 @@ const Register = () => {
     <main>
       <div className="col-10 col-md-5 mx-auto pt-5">
         <h2>Register</h2>
-        <Form inputs={inputs} onSubmit={handleSubmit} setValue={setRegisterData} submitButton="Register" />
+        <Form
+          inputs={inputs}
+          setValue={setRegisterData}
+          submit={{
+            callback: handleSubmit,
+            title: "Register",
+            success: "¡Registro exitoso!",
+          }}
+        />
       </div>
     </main>
   )
