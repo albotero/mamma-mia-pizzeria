@@ -1,27 +1,9 @@
-import { useEffect, useState } from "react"
-import { Button } from "react-bootstrap"
-import { FaRegCircleCheck } from "react-icons/fa6"
-import { MdOutlineReportGmailerrorred } from "react-icons/md"
-import Swal from "sweetalert2"
-import withReactContent from "sweetalert2-react-content"
+import { Button, FormLabel, Row } from "react-bootstrap"
 
-import Input from "../../components/input/Input"
-import SwalHtml from "../swalhtml/SwalHtml"
-
-const MySwal = withReactContent(Swal)
+import { showSweetAlert } from "../../utils/sweet-alert.jsx"
+import Input from "../input/Input"
 
 const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
-  const [result, setResult] = useState()
-
-  useEffect(() => {
-    if (result)
-      MySwal.fire({
-        ...result,
-        confirmButtonText: "Ok!",
-        confirmButtonColor: "#333",
-      })
-  }, [result])
-
   const sendForm = (e) => {
     try {
       // Check if inputs have valid data
@@ -31,24 +13,10 @@ const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
       const result = onSubmit()
       if (result?.error) throw { errors: [result.error] }
       // Render success message
-      setResult({
-        title: "Success",
-        icon: "success",
-        html: <SwalHtml message={successMessage || "Data sent to server"} Icon={FaRegCircleCheck} />,
-      })
+      showSweetAlert({ message: successMessage || "Data sent to server", success: true })
     } catch ({ errors }) {
       // Render error message
-      setResult({
-        title: "Error",
-        icon: "error",
-        html: (
-          <SwalHtml
-            message={`The following error${errors.length === 1 ? "" : "s"} occurred:`}
-            list={errors}
-            Icon={MdOutlineReportGmailerrorred}
-          />
-        ),
-      })
+      showSweetAlert({ message: `The following error${errors.length === 1 ? "" : "s"} occurred:`, list: errors })
     } finally {
       e.preventDefault()
     }
@@ -58,10 +26,10 @@ const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
     <>
       <form action="" onSubmit={sendForm} className="d-flex flex-column gap-4 mt-4">
         {inputs.map(({ id, label, prop, type, invalid, required }) => (
-          <div key={id} className="form-group row">
-            <label htmlFor={id} className="col-md-4 col-form-label">
+          <Row key={id} className="form-group">
+            <FormLabel htmlFor={id} className="col-md-4">
               {label}: {required && <span className="text-danger">*</span>}
-            </label>
+            </FormLabel>
             <Input
               className="col-md-8"
               type={type}
@@ -69,14 +37,14 @@ const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
               invalid={invalid()}
               setValue={{ callback: setValue, prop }}
             />
-          </div>
+          </Row>
         ))}
 
-        <div className="row">
+        <Row>
           <Button type="submit" variant="outline-dark" className="btn-lg col-6 col-md-4 mx-auto mt-2">
             {submitButton}
           </Button>
-        </div>
+        </Row>
       </form>
     </>
   )
