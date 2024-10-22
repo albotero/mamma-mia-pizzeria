@@ -1,11 +1,26 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "react-bootstrap"
 import { FaRegCircleCheck } from "react-icons/fa6"
 import { MdOutlineReportGmailerrorred } from "react-icons/md"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
+
 import Input from "../../components/input/Input"
+import SwalHtml from "../swalhtml/SwalHtml"
+
+const MySwal = withReactContent(Swal)
 
 const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
   const [result, setResult] = useState()
+
+  useEffect(() => {
+    if (result)
+      MySwal.fire({
+        ...result,
+        confirmButtonText: "Ok!",
+        confirmButtonColor: "#333",
+      })
+  }, [result])
 
   const sendForm = (e) => {
     try {
@@ -18,29 +33,20 @@ const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
       // Render success message
       setResult({
         title: "Success",
-        color: "success",
-        message: (
-          <p className="d-flex align-items-center my-1">
-            <FaRegCircleCheck size="1.2rem" />
-            <span className="ms-2">{successMessage || "Data sent to server"}</span>
-          </p>
-        ),
+        icon: "success",
+        html: <SwalHtml message={successMessage || "Data sent to server"} Icon={FaRegCircleCheck} />,
       })
     } catch ({ errors }) {
       // Render error message
       setResult({
         title: "Error",
-        color: "danger",
-        message: (
-          <>
-            <p className="my-2">The following error{errors.length === 1 ? "" : "s"} occurred:</p>
-            {errors.map((err, i) => (
-              <p key={`error-${i}`} className="d-flex align-items-center my-1">
-                <MdOutlineReportGmailerrorred size="1.5rem" />
-                <span className="ms-1">{err}</span>
-              </p>
-            ))}
-          </>
+        icon: "error",
+        html: (
+          <SwalHtml
+            message={`The following error${errors.length === 1 ? "" : "s"} occurred:`}
+            list={errors}
+            Icon={MdOutlineReportGmailerrorred}
+          />
         ),
       })
     } finally {
@@ -72,15 +78,6 @@ const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
           </Button>
         </div>
       </form>
-
-      {result && (
-        <div
-          className={`border border-${result.color} bg-${result.color} bg-opacity-10 text-${result.color} rounded mt-4 p-4 pb-2`}
-        >
-          <p className="h4">{result.title}</p>
-          <div className="d-flex flex-column align-center ms-2 mb-2">{result.message}</div>
-        </div>
-      )}
     </>
   )
 }
