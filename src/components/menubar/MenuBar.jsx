@@ -1,38 +1,52 @@
+import { Navbar } from "react-bootstrap"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
-import { Button, Navbar } from "react-bootstrap"
+import { Link } from "react-router-dom"
+
 import { currency } from "../../utils/format"
 
 const MenuBar = () => {
   // Variables to be retrieved from backend
   const total = 25000
-  const token = false
+  const token = true
 
   return (
     <Navbar expand="lg" bg="dark" data-bs-theme="dark" sticky="top" className="px-1 px-lg-4">
       <Container>
-        <Navbar.Brand href="/">Pizzería Mamma Mia!</Navbar.Brand>
+        <Link to="/" className="navbar-brand">
+          Pizzería Mamma Mia!
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">🍕 Home</Nav.Link>
+            <Link to="/" className="nav-link">
+              🍕 Home
+            </Link>
             {token ? (
               <>
-                <Nav.Link href="/">🔓 Profile</Nav.Link>
-                <Nav.Link href="/">🔒 Logout</Nav.Link>
+                <Link to="/profile" className="nav-link">
+                  🔓 Profile
+                </Link>
+                <Link to="/logout" className="nav-link">
+                  🔒 Logout
+                </Link>
               </>
             ) : (
               <>
-                <Nav.Link href="/">🔐 Login</Nav.Link>
-                <Nav.Link href="/">🔐 Register</Nav.Link>
+                <Link to="/login" className="nav-link">
+                  🔐 Login
+                </Link>
+                <Link to="/register" className="nav-link">
+                  🔐 Register
+                </Link>
               </>
             )}
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <Button variant="outline-info" className="mx-auto">
+      <Link to="/cart" className="mx-auto btn btn-outline-info">
         🛒 Total: {currency(total)}
-      </Button>
+      </Link>
     </Navbar>
   )
 }
