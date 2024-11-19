@@ -9,6 +9,6 @@ Las entregas se encuentran en la rama principal (Main), consolidadas con Merge a
 |  3   | Renderización dinámica de componentes |   ✅ 5f2add71...   |
 |  4   | Consumo de APIs con React             |   ✅ 260635c7...   |
 |  5   | React Router I                        |   ✅ fdb33b2b...   |
-|  6   | Context                               |         🔜         |
+|  6   | Context                               |   ✅ 39357407...   |
 |  7   | React Router II                       |         🔜         |
 |  8   | JSON Web Token - JWT                  |         🔜         |
