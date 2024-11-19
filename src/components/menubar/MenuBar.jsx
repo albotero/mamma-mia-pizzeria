@@ -1,13 +1,16 @@
+import { useContext } from "react"
 import { Navbar } from "react-bootstrap"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import { Link } from "react-router-dom"
 
+import { CartContext } from "../../context/CartContext"
 import { currency } from "../../utils/format"
 
 const MenuBar = () => {
+  const { cartTotal } = useContext(CartContext)
+
   // Variables to be retrieved from backend
-  const total = 25000
   const token = true
 
   return (
@@ -45,7 +48,7 @@ const MenuBar = () => {
         </Navbar.Collapse>
       </Container>
       <Link to="/cart" className="mx-auto btn btn-outline-info">
-        🛒 Total: {currency(total)}
+        🛒 Total: {currency(cartTotal)}
       </Link>
     </Navbar>
   )

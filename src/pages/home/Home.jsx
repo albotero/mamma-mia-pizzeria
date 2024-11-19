@@ -1,21 +1,12 @@
-import { useEffect, useState } from "react"
+import { useContext } from "react"
 
 import Header from "../../components/header/Header"
 import CardsList from "../../components/cardslist/CardsList"
 import Error from "../../components/error/Error"
-import { fetchData } from "../../utils/fetch"
+import { PizzasContext } from "../../context/PizzasContext"
 
 const Home = () => {
-  const [pizzas, setPizzas] = useState([])
-  const [error, setError] = useState()
-
-  useEffect(() => {
-    fetchData({
-      data: { endpoint: "http://localhost:5000/api/pizzas" },
-      callback: setPizzas,
-      errorCallback: setError,
-    })
-  }, [setPizzas, setError])
+  const { error, pizzas } = useContext(PizzasContext)
 
   return (
     <main>
