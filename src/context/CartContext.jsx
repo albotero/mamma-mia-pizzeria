@@ -1,11 +1,11 @@
 import { createContext, useContext, useState } from "react"
-import { PizzasContext } from "./PizzasContext"
+import { usePizzas } from "./PizzasContext"
 
-export const CartContext = createContext()
+const CartContext = createContext()
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([])
-  const { findPizza } = useContext(PizzasContext)
+  const { findPizza } = usePizzas()
 
   const cartTotal = cart.reduce((acc, { id, count }) => acc + findPizza(id).price * count, 0)
 
@@ -25,5 +25,7 @@ const CartProvider = ({ children }) => {
   const context = { cart, cartTotal, setCart, modifyCount }
   return <CartContext.Provider value={context}>{children}</CartContext.Provider>
 }
+
+export const useCart = () => useContext(CartContext)
 
 export default CartProvider

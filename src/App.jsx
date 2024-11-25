@@ -1,4 +1,3 @@
-import { useContext } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 
 import Footer from "./components/footer/Footer"
@@ -12,10 +11,10 @@ import NotFound from "./pages/notfound/NotFound"
 import Profile from "./pages/profile/Profile"
 import CartProvider from "./context/CartContext"
 import PizzasProvider from "./context/PizzasContext"
-import { UserContext } from "./context/UserContext"
+import { useUser } from "./context/UserContext"
 
 function App() {
-  const { token } = useContext(UserContext)
+  const { token } = useUser()
 
   return (
     <PizzasProvider>

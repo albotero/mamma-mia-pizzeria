@@ -1,17 +1,16 @@
-import { useContext } from "react"
 import { Button } from "react-bootstrap"
 import { IoWarningOutline } from "react-icons/io5"
 
 import CartItem from "../../components/cartitem/CartItem"
 import { currency } from "../../utils/format"
-import { CartContext } from "../../context/CartContext"
-import { PizzasContext } from "../../context/PizzasContext"
-import { UserContext } from "../../context/UserContext"
+import { useCart } from "../../context/CartContext"
+import { usePizzas } from "../../context/PizzasContext"
+import { useUser } from "../../context/UserContext"
 
 const Cart = () => {
-  const { cart, cartTotal } = useContext(CartContext)
-  const { findPizza } = useContext(PizzasContext)
-  const { token } = useContext(UserContext)
+  const { cart, cartTotal } = useCart()
+  const { findPizza } = usePizzas()
+  const { token } = useUser()
 
   return (
     <main>

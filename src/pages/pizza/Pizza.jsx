@@ -1,18 +1,18 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Button, Container, Image, Row } from "react-bootstrap"
 import { Navigate, useParams } from "react-router-dom"
 
 import Error from "../../components/error/Error"
 import Header from "../../components/header/Header"
 import IngredientList from "../../components/ingredientlist/IngredientList"
-import { CartContext } from "../../context/CartContext"
+import { useCart } from "../../context/CartContext"
 import { fetchData } from "../../utils/fetch"
 import { currency } from "../../utils/format"
 
 const Pizza = () => {
   const [pizza, setPizza] = useState({})
   const [error, setError] = useState()
-  const { modifyCount } = useContext(CartContext)
+  const { modifyCount } = useCart()
   const { id } = useParams()
 
   useEffect(() => {

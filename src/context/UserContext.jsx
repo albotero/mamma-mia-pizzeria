@@ -1,6 +1,6 @@
-import { createContext, useState } from "react"
+import { createContext, useContext, useState } from "react"
 
-export const UserContext = createContext()
+const UserContext = createContext()
 
 const UserProvider = ({ children }) => {
   const [token, setToken] = useState(true)
@@ -9,5 +9,7 @@ const UserProvider = ({ children }) => {
 
   return <UserContext.Provider value={{ token, logout }}>{children}</UserContext.Provider>
 }
+
+export const useUser = () => useContext(UserContext)
 
 export default UserProvider

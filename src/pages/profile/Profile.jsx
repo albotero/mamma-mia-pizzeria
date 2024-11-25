@@ -1,12 +1,11 @@
-import { useContext } from "react"
 import { Button, Col, Container, Image, Row } from "react-bootstrap"
 import { MdLogout } from "react-icons/md"
 
-import { UserContext } from "../../context/UserContext"
+import { useUser } from "../../context/UserContext"
 import Woman from "./woman.gif"
 
 const Profile = () => {
-  const { logout } = useContext(UserContext)
+  const { logout } = useUser()
 
   return (
     <main>

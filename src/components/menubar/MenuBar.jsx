@@ -1,16 +1,15 @@
-import { useContext } from "react"
 import { Navbar } from "react-bootstrap"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import { Link, NavLink } from "react-router-dom"
 
-import { CartContext } from "../../context/CartContext"
-import { UserContext } from "../../context/UserContext"
+import { useCart } from "../../context/CartContext"
+import { useUser } from "../../context/UserContext"
 import { currency } from "../../utils/format"
 
 const MenuBar = () => {
-  const { cartTotal } = useContext(CartContext)
-  const { token, logout } = useContext(UserContext)
+  const { cartTotal } = useCart()
+  const { token, logout } = useUser()
 
   const linkClassName = ({ isActive }) => "nav-link" + (isActive ? " text-light" : "")
   const cartButtonClassName = ({ isActive }) => "mx-auto btn " + (isActive ? "btn-info" : "btn-outline-info")

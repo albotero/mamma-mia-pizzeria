@@ -1,4 +1,3 @@
-import { useContext } from "react"
 import { ListGroup, ListGroupItem } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
@@ -6,10 +5,10 @@ import { Link } from "react-router-dom"
 
 import { currency } from "../../utils/format"
 import IngredientList from "../ingredientlist/IngredientList"
-import { CartContext } from "../../context/CartContext"
+import { useCart } from "../../context/CartContext"
 
 const CardPizza = ({ pizza: { id, name, price, ingredients, img } }) => {
-  const { modifyCount } = useContext(CartContext)
+  const { modifyCount } = useCart()
 
   return (
     <Card>
