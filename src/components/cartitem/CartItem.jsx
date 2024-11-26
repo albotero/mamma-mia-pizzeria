@@ -1,13 +1,12 @@
 import { Button, Col, Row } from "react-bootstrap"
-import { useContext } from "react"
 import { BsTrash3 } from "react-icons/bs"
 import { IoMdAdd, IoMdRemove } from "react-icons/io"
 
-import { CartContext } from "../../context/CartContext"
+import { useCart } from "../../context/CartContext"
 import { currency } from "../../utils/format"
 
 const CartItem = ({ pizza, count }) => {
-  const { modifyCount } = useContext(CartContext)
+  const { modifyCount } = useCart()
   const { id, name, price, img } = pizza
 
   return (

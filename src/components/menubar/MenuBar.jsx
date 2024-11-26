@@ -1,17 +1,18 @@
-import { useContext } from "react"
 import { Navbar } from "react-bootstrap"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
-import { CartContext } from "../../context/CartContext"
+import { useCart } from "../../context/CartContext"
+import { useUser } from "../../context/UserContext"
 import { currency } from "../../utils/format"
 
 const MenuBar = () => {
-  const { cartTotal } = useContext(CartContext)
+  const { cartTotal } = useCart()
+  const { token, logout } = useUser()
 
-  // Variables to be retrieved from backend
-  const token = true
+  const linkClassName = ({ isActive }) => "nav-link" + (isActive ? " text-light" : "")
+  const cartButtonClassName = ({ isActive }) => "mx-auto btn " + (isActive ? "btn-info" : "btn-outline-info")
 
   return (
     <Navbar expand="lg" bg="dark" data-bs-theme="dark" sticky="top" className="px-1 px-lg-4">
@@ -22,34 +23,34 @@ const MenuBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/" className="nav-link">
+            <NavLink to="/" className={linkClassName}>
               🍕 Home
-            </Link>
+            </NavLink>
             {token ? (
               <>
-                <Link to="/profile" className="nav-link">
+                <NavLink to="/profile" className={linkClassName}>
                   🔓 Profile
-                </Link>
-                <Link to="/logout" className="nav-link">
+                </NavLink>
+                <button className="nav-link" onClick={logout}>
                   🔒 Logout
-                </Link>
+                </button>
               </>
             ) : (
               <>
-                <Link to="/login" className="nav-link">
+                <NavLink to="/login" className={linkClassName}>
                   🔐 Login
-                </Link>
-                <Link to="/register" className="nav-link">
+                </NavLink>
+                <NavLink to="/register" className={linkClassName}>
                   🔐 Register
-                </Link>
+                </NavLink>
               </>
             )}
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <Link to="/cart" className="mx-auto btn btn-outline-info">
+      <NavLink to="/cart" className={cartButtonClassName}>
         🛒 Total: {currency(cartTotal)}
-      </Link>
+      </NavLink>
     </Navbar>
   )
 }
