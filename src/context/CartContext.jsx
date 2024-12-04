@@ -6,7 +6,7 @@ import { useUser } from "./UserContext"
 const CartContext = createContext()
 
 const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")))
   const [cartTotal, setCartTotal] = useState(0)
   const { findPizza } = usePizzas()
   const { token } = useUser()
