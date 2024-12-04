@@ -11,4 +11,4 @@ Las entregas se encuentran en la rama principal (Main), consolidadas con Merge a
 |  5   | React Router I                        |   ✅ fdb33b2b...   |
 |  6   | Context                               |   ✅ 39357407...   |
 |  7   | React Router II                       |   ✅ a4891343...   |
-|  8   | JSON Web Token - JWT                  |         🔜         |
+|  8   | JSON Web Token - JWT                  |   ✅ 026ca15f...   |
