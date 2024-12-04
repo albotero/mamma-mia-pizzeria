@@ -21,7 +21,7 @@ export const showSweetAlert = ({ success, message, list }) => {
   )
 
   withReactContent(Swal).fire({
-    title: success ? "Success" : "Error",
+    title: success ? "¡Éxito!" : "¡Error!",
     icon: success ? "success" : "error",
     html: html(success ? FaRegCircleCheck : MdOutlineReportGmailerrorred),
     confirmButtonText: "Ok!",

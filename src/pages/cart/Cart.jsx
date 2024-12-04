@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { IoWarningOutline } from "react-icons/io5"
 
 import CartItem from "../../components/cartitem/CartItem"
@@ -12,13 +11,12 @@ const Cart = () => {
   const { cart, cartTotal, buyCart, clearCart } = useCart()
   const { findPizza } = usePizzas()
   const { token } = useUser()
-  const [resultAvailable, setResultAvailable] = useState(false)
 
   return (
     <main>
       <div className="col-10 col-md-5 mx-auto pt-5">
         <h2>Detalles del pedido</h2>
-        {cartTotal === 0 && !resultAvailable ? (
+        {cartTotal === 0 ? (
           <p className="my-4 fs-4 text-secondary text-center text-md-start">
             <IoWarningOutline className="mb-2 me-2" size="2rem" />
             No tiene ninguna pizza en el carrito
@@ -39,10 +37,6 @@ const Cart = () => {
               reset={{
                 callback: clearCart,
                 title: "🛒 Vaciar carrito",
-              }}
-              resultOpts={{
-                hideForm: true,
-                setResultAvailable,
               }}
             >
               <p className="h1 m-0 text-center text-md-start">Total: {currency(cartTotal)}</p>
