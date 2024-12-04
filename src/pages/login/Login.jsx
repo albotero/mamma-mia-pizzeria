@@ -1,10 +1,13 @@
 import { useState } from "react"
+
 import Form from "../../components/form/Form"
 import { checkEmail, checkPassword } from "../../utils/regex"
+import { useUser } from "../../context/UserContext"
 
 const Login = () => {
-  const [loginData, setLoginData] = useState({})
-  const { email, password } = loginData
+  const { login } = useUser()
+  const [credentials, setCredentials] = useState({})
+  const { email, password } = credentials
 
   const inputs = [
     {
@@ -25,8 +28,7 @@ const Login = () => {
     },
   ]
 
-  // Send the data to server
-  const onSubmit = () => ({})
+  const handleSubmit = () => login(credentials)
 
   return (
     <main>
@@ -34,10 +36,12 @@ const Login = () => {
         <h2>Login</h2>
         <Form
           inputs={inputs}
-          onSubmit={onSubmit}
-          setValue={setLoginData}
-          submitButton="Login"
-          successMessage="Authentication successful!"
+          setValue={setCredentials}
+          submit={{
+            callback: handleSubmit,
+            title: "Login",
+            success: "¡Autenticación exitosa!",
+          }}
         />
       </div>
     </main>

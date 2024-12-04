@@ -1,51 +1,109 @@
+import { useState } from "react"
 import { Button, FormLabel, Row } from "react-bootstrap"
+import { FaRegCircleCheck } from "react-icons/fa6"
+import { MdOutlineReportGmailerrorred } from "react-icons/md"
 
-import { showSweetAlert } from "../../utils/sweet-alert.jsx"
 import Input from "../input/Input"
 
-const Form = ({ inputs, setValue, onSubmit, successMessage, submitButton }) => {
-  const sendForm = (e) => {
+const Form = ({ children, inputs, setValue, submit, reset, resultOpts = {} }) => {
+  const [result, setResult] = useState()
+  const { hideForm, setResultAvailable } = resultOpts
+
+  const resetForm = () => reset?.callback()
+
+  const sendForm = async (e) => {
+    e.preventDefault()
     try {
       // Check if inputs have valid data
-      const errors = inputs.map(({ invalid }) => invalid()).filter((el) => el)
-      if (errors.length) throw { errors }
+      if (inputs) {
+        const errors = inputs.map(({ invalid }) => invalid()).filter((el) => el)
+        if (errors.length) throw { errors }
+      }
       // Send data to server
-      const result = onSubmit()
+      const result = await submit.callback()
       if (result?.error) throw { errors: [result.error] }
       // Render success message
-      showSweetAlert({ message: successMessage || "Data sent to server", success: true })
+      console.log(submit.success)
+      setResult({
+        title: "Success",
+        color: "success",
+        message: (
+          <p className="d-flex align-items-center my-1">
+            <FaRegCircleCheck size="1.2rem" />
+            <span className="ms-2">{submit.success || "Data sent to server"}</span>
+          </p>
+        ),
+      })
     } catch ({ errors }) {
       // Render error message
-      showSweetAlert({ message: `The following error${errors.length === 1 ? "" : "s"} occurred:`, list: errors })
+      console.error(errors)
+      setResult({
+        title: "Error",
+        color: "danger",
+        message: (
+          <>
+            <p className="my-2">The following error{errors.length === 1 ? "" : "s"} occurred:</p>
+            {errors.map((err) => (
+              <p key={err} className="d-flex align-items-center my-1">
+                <MdOutlineReportGmailerrorred size="1.5rem" />
+                <span className="ms-1">{err}</span>
+              </p>
+            ))}
+          </>
+        ),
+      })
     } finally {
-      e.preventDefault()
+      if (setResultAvailable) setResultAvailable(true)
     }
   }
 
   return (
     <>
-      <form action="" onSubmit={sendForm} className="d-flex flex-column gap-4 mt-4">
-        {inputs.map(({ id, label, prop, type, invalid, required }) => (
-          <Row key={id} className="form-group">
-            <FormLabel htmlFor={id} className="col-md-4">
-              {label}: {required && <span className="text-danger">*</span>}
-            </FormLabel>
-            <Input
-              className="col-md-8"
-              type={type}
-              id={id}
-              invalid={invalid()}
-              setValue={{ callback: setValue, prop }}
-            />
-          </Row>
-        ))}
+      {hideForm && result ? undefined : (
+        <form onSubmit={sendForm} onReset={resetForm} className="d-flex flex-column gap-4 mt-4">
+          {children}
 
-        <Row>
-          <Button type="submit" variant="outline-dark" className="btn-lg col-6 col-md-4 mx-auto mt-2">
-            {submitButton}
-          </Button>
-        </Row>
-      </form>
+          {inputs?.map(({ id, label, prop, type, invalid, required }) => (
+            <Row key={id} className="form-group">
+              <FormLabel htmlFor={id} className="col-md-4">
+                {label}: {required && <span className="text-danger">*</span>}
+              </FormLabel>
+              <Input
+                className="col-md-8"
+                type={type}
+                id={id}
+                invalid={invalid()}
+                setValue={{ callback: setValue, prop }}
+              />
+            </Row>
+          ))}
+
+          <Row>
+            <Button
+              type="submit"
+              variant={submit.variant || "outline-dark"}
+              className="btn-lg col-6 col-md-4 mx-auto mt-2"
+              disabled={submit.disabled}
+            >
+              {submit.title}
+            </Button>
+            {reset && (
+              <Button type="reset" variant="outline-dark" className="btn-lg col-6 col-md-4 mx-auto mt-2">
+                {reset.title}
+              </Button>
+            )}
+          </Row>
+        </form>
+      )}
+
+      {result && (
+        <div
+          className={`border border-${result.color} bg-${result.color} bg-opacity-10 text-${result.color} rounded mt-4 p-4 pb-2`}
+        >
+          <p className="h4">{result.title}</p>
+          <div className="d-flex flex-column align-center ms-2 mb-2">{result.message}</div>
+        </div>
+      )}
     </>
   )
 }
